@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+spec:
+  # Never want more than one copy of Redis at a given time
+  replicas: 1
+  selector:
+    matchLabels:
+      component: redis
+  template:
+    metadata:
+      labels:
+        component: redis
+    spec:
+      containers:
+      - name: redis
+        # Use public repository version
+        image: redis
+        ports:
+        - containerPort: 6379
