@@ -16,9 +16,9 @@ before_install:
   # Install and update kubectl inside our travis env
   - gcloud components update kubectl
   # Authorization for google sdk, like IAM user for EB
-  - gcloud auth active-service-account --key-file service-account.json
+  - gcloud auth activate-service-account --key-file service-account.json
   - gcloud config set project multi-k8s-280013
-  - gcloud config set compute/api/?(.*)zone us-central1-c
+  - gcloud config set compute/zone us-central1-c
   - gcloud container clusters get-credentials multi-cluster
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   # Provide relative path to the docker file.  That file is nested inside of the
@@ -26,7 +26,7 @@ before_install:
   - docker build -t orange29/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true orange29/docker-react npm run test
+  - docker run -e CI=true orange29/react-test npm run test
 
 deploy:
   provider: script
