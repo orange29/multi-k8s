@@ -13,4 +13,4 @@ docker push orange29/multi-worker:$SHA
 kubectl apply -f k8s
 kubectl set image deployments/server-deployment server=orange29/multi-server:$SHA
 kubectl set image deployments/client-deployment client=orange29/multi-client:$SHA
-kubectl set image deployments/worker worker=worker=orange29/multi-worker:$SHA
+kubectl set image deployments/worker-deployment worker=worker=orange29/multi-worker:$SHA
