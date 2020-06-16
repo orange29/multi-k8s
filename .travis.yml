@@ -3,26 +3,26 @@ language: generic
 
 services:
   - docker
-# env:
-#   global:
+env:
+  global:
     # Set the version numbers for the components
-    # - SHA=$(git rev-parse HEAD)
+    - SHA=$(git rev-parse HEAD)
     # Suppress any prompts google-cloud might be showing when entering commands.
-    # - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 before_install:
-  # - openssl aes-256-cbc -K $encrypted_0fbff43f7ea9_key -iv $encrypted_0fbff43f7ea9_iv -in service-account.json.enc -out service-account.json -d
+  - openssl aes-256-cbc -K $encrypted_0fbff43f7ea9_key -iv $encrypted_0fbff43f7ea9_iv -in service-account.json.enc -out service-account.json -d
   # Download and install to local tavis-ci instance
-  # - curl https://sdk.cloud.google.com | bash > /dev/null;
+  - curl https://sdk.cloud.google.com | bash > /dev/null;
   # Update shell
-  # - source $HOME/google-cloud-sdk/path.bash.inc
+  - source $HOME/google-cloud-sdk/path.bash.inc
   # Install and update kubectl inside our travis env
-  # - gcloud components update kubectl
+  - gcloud components update kubectl
   # Authorization for google sdk, like IAM user for EB
-  # - gcloud auth activate-service-account --key-file service-account.json
-  # - gcloud config set project multi-k8s-280013
-  # - gcloud config set compute/zone us-central1-c
-  # - gcloud container clusters get-credentials multi-cluster
-  # - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - gcloud auth activate-service-account --key-file service-account.json
+  - gcloud config set project multi-k8s-280013
+  - gcloud config set compute/zone us-central1-c
+  - gcloud container clusters get-credentials multi-cluster
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   # Provide relative path to the docker file.  That file is nested inside of the
   # client directory.
   - docker build -t orange29/react-test -f ./client/Dockerfile.dev ./client
